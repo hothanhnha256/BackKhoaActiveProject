@@ -4,6 +4,7 @@ package backhoaactive.example.expense.admin;
 import backhoaactive.example.expense.User.dto.request.UserCreationRequest;
 import backhoaactive.example.expense.User.dto.response.UserResponse;
 import backhoaactive.example.expense.dtoGlobal.response.ApiResponse;
+import backhoaactive.example.expense.enums.Roles;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,14 +23,30 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @PostMapping()
+    @PostMapping("/createAdmin")
     public ApiResponse<UserResponse> createAdmin(@RequestBody UserCreationRequest userCreationRequest) {
         log.info("Creating Admin");
         return ApiResponse.<UserResponse>builder()
-                .data(adminService.createAdmin(userCreationRequest))
+                .data(adminService.createByRoles(userCreationRequest, Roles.ADMIN))
                 .success(true)
                 .status(HttpStatus.OK)
                 .build();
         }
+    @PostMapping("createManager")
+    public ApiResponse<UserResponse> createManager(@RequestBody UserCreationRequest userCreationRequest) {
+        log.info("Creating Manager");
+        return ApiResponse.<UserResponse>builder()
+                .data(adminService.createByRoles(userCreationRequest,Roles.MANAGER))
+                .status(HttpStatus.OK)
+                .build();
+    }
+    @PostMapping("createFinance")
+    public ApiResponse<UserResponse> createFinance(@RequestBody UserCreationRequest userCreationRequest) {
+        log.info("Creating Finance");
+        return ApiResponse.<UserResponse>builder()
+                .data(adminService.createByRoles(userCreationRequest,Roles.FINANCE_MANAGER))
+                .status(HttpStatus.OK)
+                .build();
+    }
 
 }

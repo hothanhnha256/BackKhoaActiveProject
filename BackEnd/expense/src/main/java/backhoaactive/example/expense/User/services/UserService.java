@@ -2,15 +2,17 @@ package backhoaactive.example.expense.User.services;
 
 import backhoaactive.example.expense.User.dto.request.UserCreationRequest;
 import backhoaactive.example.expense.User.dto.request.UserUpdatePasswordRequest;
-import backhoaactive.example.expense.User.dto.request.UserUpdateRequest;
 import backhoaactive.example.expense.User.dto.response.UserResponse;
 import backhoaactive.example.expense.User.entity.User;
 import backhoaactive.example.expense.User.mapper.UserMapper;
 import backhoaactive.example.expense.User.repository.UserRepository;
+import backhoaactive.example.expense.department.DepartmentRepository;
+import backhoaactive.example.expense.department.entity.Department;
 import backhoaactive.example.expense.enums.Roles;
 import backhoaactive.example.expense.exception.AppException;
 import backhoaactive.example.expense.exception.ErrorCode;
 import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -31,8 +33,9 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private UserRepository userRepository;
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
     private PasswordEncoder passwordEncoder;
+    private DepartmentRepository departmentRepository;
 
     public UserResponse createRequest(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
@@ -40,11 +43,13 @@ public class UserService {
         }
         User user = userMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-
+        Department department = departmentRepository.findById(request.getDepartmentId()).orElseThrow(
+                ()-> new AppException(ErrorCode.INVALID_DEPARTMENT_ID)
+        );
+        user.setDepartment(department);
         user.setRole(Roles.USER);
 
         try {
-            user = userRepository.save(user);
             user = userRepository.save(user);
         } catch (DataIntegrityViolationException exception) {
             throw new AppException(ErrorCode.USER_EXISTED);
@@ -84,12 +89,6 @@ public class UserService {
         return userRepository.findAll(pageable).map(userMapper::toUserResponse);
     }
 
-    public UserResponse updateUser(String userID, UserUpdateRequest user) {
-        User userToUpdate = userRepository.findById(userID).orElseThrow(() -> new AppException(ErrorCode.USER_INVALID));
-        userMapper.updateUser(userToUpdate, user);
-
-        return userMapper.toUserResponse(userRepository.save(userToUpdate));
-    }
 
     public UserResponse changePasswordUser(String userID, UserUpdatePasswordRequest userUpdatePasswordRequest) {
         User user = userRepository.findById(userID).orElseThrow(() -> new AppException(ErrorCode.USER_INVALID));

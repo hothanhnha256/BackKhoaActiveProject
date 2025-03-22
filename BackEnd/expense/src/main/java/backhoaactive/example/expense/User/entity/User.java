@@ -1,5 +1,6 @@
 package backhoaactive.example.expense.User.entity;
 
+import backhoaactive.example.expense.department.entity.Department;
 import backhoaactive.example.expense.enums.Roles;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,6 +26,10 @@ public class User {
     String username;
 
     String password;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
+    Department department;
 
     Roles role;
     LocalDate createdAt;

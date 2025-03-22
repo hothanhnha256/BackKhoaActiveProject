@@ -1,4 +1,4 @@
-package backhoaactive.example.expense.User.dto.request;
+package backhoaactive.example.expense.department.dto.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -10,8 +10,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserUpdateRequest {
-    String firstName;
-    String lastName;
-    LocalDate birthDate;
+public class DepartmentCreationRequest {
+    String name;
 }

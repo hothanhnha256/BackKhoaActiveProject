@@ -20,9 +20,8 @@ public class UserResponse {
     String username;
 
     String password;
-    String firstName;
-    String lastName;
-    LocalDate birthDate;
+
+    String departmentId;
 
     Roles role;
     LocalDate createdAt;

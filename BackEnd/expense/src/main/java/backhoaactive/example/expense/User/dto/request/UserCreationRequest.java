@@ -17,11 +17,9 @@ public class UserCreationRequest {
     String username;
 
     String password;
-    String firstName;
-    String lastName;
-    LocalDate birthDate;
 
-    Roles role;
+    String departmentId;
+
     LocalDate createdAt;
     LocalDate updatedAt;
 }

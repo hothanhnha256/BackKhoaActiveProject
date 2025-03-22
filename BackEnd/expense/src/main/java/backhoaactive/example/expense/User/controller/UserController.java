@@ -3,9 +3,9 @@ package backhoaactive.example.expense.User.controller;
 
 import backhoaactive.example.expense.User.dto.request.UserCreationRequest;
 import backhoaactive.example.expense.User.dto.request.UserUpdatePasswordRequest;
-import backhoaactive.example.expense.User.dto.request.UserUpdateRequest;
 import backhoaactive.example.expense.User.dto.response.UserResponse;
 import backhoaactive.example.expense.User.services.UserService;
+import backhoaactive.example.expense.enums.Roles;
 import backhoaactive.example.expense.exception.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +51,8 @@ public class UserController {
     @GetMapping()
     ApiResponse<Page<UserResponse>> getAllUsers(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size)  {
+            @RequestParam(defaultValue = "10") int size
+            )  {
 
         log.info("getAllUsers");
 
@@ -68,13 +69,6 @@ public class UserController {
         return apiResponse;
     }
 
-    @PutMapping("/{userId}")
-    ApiResponse<UserResponse> updateUser(@PathVariable("userId") String userId, @RequestBody UserUpdateRequest user) {
-        ApiResponse<UserResponse> apiResponse = new ApiResponse<>();
-        apiResponse.setCode(200);
-        apiResponse.setResult(userService.updateUser(userId, user));
-        return apiResponse;
-    }
 
     @PutMapping("/{userId}/password")
     ApiResponse<UserResponse> updateUser(@PathVariable("userId") String userId, @RequestBody UserUpdatePasswordRequest user) {
