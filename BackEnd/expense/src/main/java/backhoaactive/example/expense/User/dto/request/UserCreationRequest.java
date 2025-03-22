@@ -15,7 +15,6 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserCreationRequest {
     String username;
-
     String password;
 
     String departmentId;

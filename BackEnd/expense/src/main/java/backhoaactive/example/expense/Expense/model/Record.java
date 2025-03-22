@@ -1,4 +1,4 @@
-package backhoaactive.example.expense.record;
+package backhoaactive.example.expense.Expense.model;
 
 import backhoaactive.example.expense.enums.Process;
 import backhoaactive.example.expense.enums.TypeExpense;
