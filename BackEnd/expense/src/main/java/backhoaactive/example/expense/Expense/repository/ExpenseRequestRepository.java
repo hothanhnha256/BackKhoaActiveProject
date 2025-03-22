@@ -10,9 +10,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 public interface ExpenseRequestRepository extends JpaRepository<Record, String>, JpaSpecificationExecutor<Record> {
+
+    List<Record> findByEmployeeIdIn(List<String> employeeIds);
 
     Page<Record> findByEmployeeId(String employeeId, Pageable pageable);
 
