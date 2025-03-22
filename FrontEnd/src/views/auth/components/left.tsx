@@ -28,6 +28,14 @@ const AuthLeftContent = ({ isAnimated }: AuthLeftContentProps) => {
     const [isError, setIsError] = useState<boolean>(false);
     const { addDefaultNotification } = useDefaultNotification();
     const { loading } = useSelector((state: RootState) => state.auth);
+    const [selectedRole, setSelectedRole] = useState<RolesType[]>(["ADMIN"]);
+
+    const RolesTypeValues: RolesType[] = ['ADMIN', 'MANAGER', 'FINANCIAL_MANAGER', 'EMPLOYEE'];
+
+    const roleTypeOptions: SelectInputOptionFormat[] = RolesTypeValues.map(type => ({
+        label: intl(type),
+        value: type
+    }));
 
     const handleLogin = () => {
 
@@ -144,6 +152,25 @@ const AuthLeftContent = ({ isAnimated }: AuthLeftContentProps) => {
                             type="password"
                             value={password}
                             setValue={setPassword}
+                            inputClassName="bg-lightContainer dark:!bg-darkContainerPrimary !rounded-xl h-12 border border-gray-200 dark:border-white/10"
+                        />
+
+                        <CustomInputField
+                            label={
+                                <div className='flex gap-1 place-items-center relative mb-2'>
+                                    {intl("Role")}
+                                    <p className="text-red-500">*</p>
+                                </div>
+                            }
+                            placeholder={intl("PasswordPlaceholder")}
+                            id="role"
+                            type="select"
+                            select_type="single"
+                            dropdownPosition="bottom"
+                            isClearable={false}
+                            value={selectedRole}
+                            setValue={setSelectedRole}
+                            options={roleTypeOptions}
                             inputClassName="bg-lightContainer dark:!bg-darkContainerPrimary !rounded-xl h-12 border border-gray-200 dark:border-white/10"
                         />
                     </div>

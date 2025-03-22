@@ -35,7 +35,7 @@ const AuthRightContent = ({ isAnimated }: AuthRightContentProps) => {
                     ${isAnimated ? "-scale-x-100" : ""}`}
                 >
                     <div className="cloud dark:!bg-darkContainer" />
-                    <Lottie animationData={bikeData} className="h-full w-full absolute bottom-0 left-0 -ml-[10%]" />
+                    <Lottie animationData={bikeData} className="h-full w-full absolute bottom-0 left-0 xl:ml-[10%]" />
                 </div>
             </div>
         </motion.div>

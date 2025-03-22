@@ -1,6 +1,6 @@
-# Dự Án Web Admin Employees Expense Management
+# Dự Án Web Employees Expense Management
 
-Chào mừng bạn đến với dự án Web Admin Employees Expense Management! Dưới đây là cấu trúc thư mục của dự án cùng với các mô tả chi tiết về từng thư mục:
+Chào mừng bạn đến với dự án Web Employees Expense Management! Dưới đây là cấu trúc thư mục của dự án cùng với các mô tả chi tiết về từng thư mục:
 
 ## Cấu trúc Thư mục
 

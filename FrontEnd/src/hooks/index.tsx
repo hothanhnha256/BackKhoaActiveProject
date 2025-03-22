@@ -5,7 +5,6 @@ import { store } from "@/store";
 import { useEffect } from "react";
 import { Provider } from "react-redux";
 import SidebarProvider from "./SidebarProvider";
-import { LoadScript } from "@react-google-maps/api";
 import overrideConsole from "@/utils/consoleOverride";
 import { ScreenViewProvider } from "./ScreenViewProvider";
 import { NotificationsProvider } from "./NotificationsProvider";
@@ -27,24 +26,18 @@ export default function ProviderWrapper({ children }: Readonly<{ children: React
     }, []);
 
     return (
-        <LoadScript
-            googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY ?? ""}
-            libraries={["places"]}
-            loadingElement={<CustomLoadingElement />}
-        >
-            <Provider store={store}>
-                <ScreenViewProvider>
-                    <NotificationsProvider>
-                        <SubmitNotificationProvider>
-                            <DefaultNotificationProvider>
-                                <SidebarProvider>
-                                    {children}
-                                </SidebarProvider>
-                            </DefaultNotificationProvider>
-                        </SubmitNotificationProvider>
-                    </NotificationsProvider>
-                </ScreenViewProvider>
-            </Provider>
-        </LoadScript>
+        <Provider store={store}>
+            <ScreenViewProvider>
+                <NotificationsProvider>
+                    <SubmitNotificationProvider>
+                        <DefaultNotificationProvider>
+                            <SidebarProvider>
+                                {children}
+                            </SidebarProvider>
+                        </DefaultNotificationProvider>
+                    </SubmitNotificationProvider>
+                </NotificationsProvider>
+            </ScreenViewProvider>
+        </Provider>
     );
 };
