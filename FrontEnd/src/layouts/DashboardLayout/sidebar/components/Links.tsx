@@ -47,8 +47,7 @@ const SidebarLinks = ({ onClickRoute }: Props) => {
   };
 
   const createLinks = (routes: any) => {
-    const managementRoutes = routes.filter((route: { path: string }) => ["orders", "shipments", "customers", "vouchers"].includes(route.path));
-    const interiorRoutes = routes.filter((route: { path: string }) => !["orders", "shipments", "customers", "vouchers"].includes(route.path));
+    const employeeRoute = routes.filter((route: { path: string }) => ["bills"].includes(route.path));
 
     const renderLinks = (routes: any, startIndex: number, headerText: string) => (
       <div>
@@ -80,8 +79,7 @@ const SidebarLinks = ({ onClickRoute }: Props) => {
 
     return (
       <ul ref={sidebarRef} className="relative">
-        {renderLinks(managementRoutes, 0, intl("management"))}
-        {renderLinks(interiorRoutes, managementRoutes.length, intl("interior"))}
+        {renderLinks(employeeRoute, 0, intl("EmployeeRoute"))}
         {indicatorStyle && (
           <motion.div
             className="absolute right-0 w-1 rounded-lg bg-red-500 dark:bg-red-500"

@@ -94,7 +94,7 @@ const TextInputV1 = ({
                         onChange={(e) => { setValue(e.target.value); }}
                         placeholder={type === "date" ? "" : (placeholder ? placeholder : disabled ? "" : InputFieldMessage('DefaultTextPlaceHolder'))}
                         className={`p-2 px-3 min-h-12 text-left border rounded-lg w-full dark:bg-darkContainerPrimary
-                        focus:outline-none flex justify-between place-items-center hide-calendar-icon
+                        focus:outline-none flex justify-between hide-calendar-icon
                         ${inputClassName}
                         ${disabled
                                 ? "!border-none !bg-gray-100 dark:!bg-white/5 dark:placeholder:!text-[rgba(255,255,255,0.15)]"

@@ -17,22 +17,8 @@
     "Role": "Login as:"
   },
   "Routes": {
-    "orders": "Orders",
-    "shipments": "Shipments",
-    "accounts": "Accounts",
-    "staffs": "Staffs",
-    "vehicles": "Vehicles",
-    "agencies": "Agencies",
-    "partners": "Transport partners",
-    "businesses": "Businesses",
-    "shipper_tasks": "SHIPPER Tasks",
-    "driver_tasks": "DRIVER Tasks",
-    "vouchers": "Vouchers",
-    "config": "Configuration",
-    "shipping_bills": "Shipping Bills",
-    "customers": "Customers",
-    "management": "Management",
-    "interior": "Interior",
+    "bills": "Bills",
+    "EmployeeRoute": "Employee",
     "home": "Home"
   },
   "Notification": {
@@ -71,5 +57,10 @@
   },
   "LoggedIn": {
     "Message": "Please log in to continue"
+  },
+  "BillsRoute": {
+    "amount": "Amount",
+    "type": "Bill Type",
+    "note": "Reason Note"
   }
 }

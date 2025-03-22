@@ -17,22 +17,9 @@
     "Role": "Đăng nhập dưới quyền:"
   },
   "Routes": {
-    "orders": "Đơn hàng",
-    "shipments": "Lô hàng",
-    "accounts": "Tài khoản",
-    "staffs": "Nhân viên",
-    "vehicles": "Phương tiện",
-    "agencies": "Bưu cục - đại lý",
-    "partners": "Đối tác vận tải",
-    "businesses": "Doanh nghiệp",
-    "shipper_tasks": "Công việc SHIPPER",
-    "driver_tasks": "Công việc DRIVER",
-    "vouchers": "Mã giảm giá",
-    "config": "Cấu hình",
-    "shipping_bills": "Biên nhận chở hàng",
-    "customers": "Khách hàng",
-    "management": "Quản lý",
-    "interior": "Nội vụ",
+    "bills": "Hoá đơn",
+    "bills_history": "Lịch sử hoá đơn",
+    "EmployeeRoute": "Nhân viên",
     "home": "Trang chủ"
   },
   "Notification": {
@@ -71,5 +58,10 @@
   },
   "LoggedIn": {
     "Message": "Vui lòng đăng nhập để tiếp tục"
+  },
+  "BillsRoute": {
+    "amount": "Chi phí",
+    "type": "Loại hoá đơn",
+    "note": "Ghi chú lý do"
   }
 }
