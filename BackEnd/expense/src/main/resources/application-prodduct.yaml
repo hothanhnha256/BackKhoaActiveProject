@@ -1,0 +1,18 @@
+server:
+  port: 8080
+  servlet:
+    context-path:
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: temp
+    username: temp
+    password: temp
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+jwt:
+  signerKey: temp
+  valid-duration: 36000000000 # second
+  refreshable-duration: 3600000000 # second
