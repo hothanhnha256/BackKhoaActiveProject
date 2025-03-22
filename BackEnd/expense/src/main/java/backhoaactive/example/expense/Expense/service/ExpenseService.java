@@ -45,5 +45,11 @@ public class ExpenseService {
         return page;
     }
 
+    public List<Record> findAllExpenseInUserIds(List<String> employeeIds) {
+        List<Record> records = this.repository.findByEmployeeIdIn(employeeIds);
+        System.out.println(records.size());
+        return records;
+    }
+
 
 }

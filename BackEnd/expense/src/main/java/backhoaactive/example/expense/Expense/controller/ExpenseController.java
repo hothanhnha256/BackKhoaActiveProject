@@ -9,6 +9,8 @@ import backhoaactive.example.expense.Expense.service.ExpenseService;
 import backhoaactive.example.expense.User.entity.User;
 import backhoaactive.example.expense.User.repository.UserRepository;
 import backhoaactive.example.expense.User.services.UserService;
+import backhoaactive.example.expense.department.DepartmentRepository;
+import backhoaactive.example.expense.department.entity.Department;
 import backhoaactive.example.expense.enums.Roles;
 import backhoaactive.example.expense.enums.TypeExpense;
 import backhoaactive.example.expense.exception.ApiResponse;
@@ -26,6 +28,7 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -33,6 +36,8 @@ import java.util.Map;
 public class ExpenseController {
     private final ExpenseService service;
     private final UserService userService;
+    private final UserRepository userRepository;
+    private final DepartmentRepository departmentRepository;
 
     @GetMapping
     public ApiResponse<ExpensesResponseDTO> getAllRequestForUser(ExpenseRequestDTO dto) {
@@ -50,24 +55,32 @@ public class ExpenseController {
             dto.setUserId(user.getId()); // add employeeId
             pageRecord = this.service.getExpenses(dto);
             records = pageRecord.getContent();
-        } else if (userRole == Roles.FINANCE) {
+        } else if (userRole == Roles.FINANCE_MANAGER) {
             // lấy hết
             pageRecord = this.service.getExpenses(dto);
             records = pageRecord.getContent();
 
         } else if (userRole == Roles.MANAGER) {
             // lấy của deparment của nó
+            Department department = user.getDepartment();
+            // tìm tất cả employee thuộc department đó
+            List<User> users = userRepository.findAllByDepartment(department);
+            List<String> ids = users.stream()
+                    .map(User::getId)  // Correct method reference syntax
+                    .collect(Collectors.toList());
+            // tìm tất cả request thuộc về các employee kia
+            System.out.println("ids" + ids.size());
+            records = this.service.findAllExpenseInUserIds(ids);
             pageRecord = this.service.getExpenses(dto);
-            records = pageRecord.getContent();
         } else {
             throw new AppException(ErrorCode.NOT_ALLOWED);
         }
 
         ExpensesResponseDTO responseDTO = ExpensesResponseDTO.builder()
                 .expenses(records)
-                .total(pageRecord.getTotalPages())
-                .page(pageRecord.getNumber() + 1)
-                .limit(pageRecord.getSize())
+//                .total(pageRecord.getTotalPages())
+//                .page(pageRecord.getNumber() + 1)
+//                .limit(pageRecord.getSize())
                 .build();
         ApiResponse<ExpensesResponseDTO> response = ApiResponse.<ExpensesResponseDTO>builder()
                 .code(200)

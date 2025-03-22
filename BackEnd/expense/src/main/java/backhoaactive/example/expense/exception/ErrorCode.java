@@ -45,15 +45,15 @@ public enum ErrorCode {
     MATERIAL_ERROR(1008, "Loại vật tư không được để trống", HttpStatus.BAD_REQUEST),
     MATERIAL_NOT_ENOUGH(1008, "Kho không đủ vật tư, vui lòng thêm vật tư", HttpStatus.BAD_REQUEST),
 
-    INVALID_DEPARTMENT_NAME(2001,"Tên không hợp lệ hoặc đã trùng",HttpStatus.BAD_REQUEST),
+    INVALID_DEPARTMENT_NAME(2001, "Tên không hợp lệ hoặc đã trùng", HttpStatus.BAD_REQUEST),
 
-    INVALID_DEPARTMENT_ID(2001,"Id không hợp lệ ",HttpStatus.BAD_REQUEST),
+    INVALID_DEPARTMENT_ID(2001, "Id không hợp lệ ", HttpStatus.BAD_REQUEST),
 
     // Đối với lịch sử kho vật liệu
-    HISTORY_ID_DOES_NOT_EXITS(1009, "Không tồn tại lịch sử với ID này", HttpStatus.BAD_REQUEST);
+    HISTORY_ID_DOES_NOT_EXITS(1009, "Không tồn tại lịch sử với ID này", HttpStatus.BAD_REQUEST),
 
+    NOT_ALLOWED(2000, "Forbidden", HttpStatus.FORBIDDEN);
 
-    ;
     private int code;
     private String message;
     private HttpStatusCode httpStatusCode;
