@@ -26,7 +26,7 @@ const BillsMain = () => {
     const intl = useTranslations("BillsRoute");
 
     const billTypeOptions: SelectInputOptionFormat[] = billTypeData.map(type => ({
-        label: type,
+        label: intl(type),
         value: type
     }));
 

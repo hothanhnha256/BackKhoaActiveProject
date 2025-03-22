@@ -14,7 +14,7 @@ const useRoutes = () => {
     {
       name: t("bills_history"),
       layout: "/bills_history",
-      path: "bills",
+      path: "bills_history",
       icon: <FaHistory className="h-4 w-4" />,
     }
   ];

@@ -62,6 +62,20 @@
   "BillsRoute": {
     "amount": "Chi phí",
     "type": "Loại hoá đơn",
-    "note": "Ghi chú lý do"
+    "note": "Ghi chú lý do",
+    "INVOICE": "Hóa đơn",
+    "RECEIPT": "Biên lai",
+    "OTHER": "Khác",
+    "PENDING": "Đang chờ",
+    "APPROVED": "Đã duyệt",
+    "REJECTED": "Từ chối",
+    "Status": "Trạng thái",
+    "id": "ID hoá đơn",
+    "reason": "Lý do chấp nhận / từ chối"
+  },
+  "TableCustomButton": {
+    "Add": "Thêm",
+    "Delete": "Xoá",
+    "Reload": "Tải lại"
   }
 }

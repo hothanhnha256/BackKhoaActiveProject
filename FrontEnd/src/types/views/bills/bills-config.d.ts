@@ -9,7 +9,9 @@ declare type BillData = {
 }
 
 declare type BillRecord = BillData & {
-    status: BillStatus;
+    Status: BillStatus;
     createdAt: string;
     updatedAt: string;
+    id: string;
+    reason?: string;
 };

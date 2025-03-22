@@ -19,11 +19,22 @@ const SidebarLinks = ({ onClickRoute }: Props) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [indicatorStyle, setIndicatorStyle] = useState<{ top: number; height: number } | null>(null);
   const routeRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const sidebarRef = useRef<HTMLUListElement | null>(null); // Ref cho container của sidebar
+  const sidebarRef = useRef<HTMLUListElement | null>(null);
+
+  const getPathWithoutLocale = (pathname: string) => {
+    const parts = pathname.split('/');
+
+    const localePattern = /^[a-z]{2}$/;
+    if (localePattern.test(parts[1])) {
+      return parts.slice(2).join('/');
+    }
+    return pathname;
+  };
 
   useEffect(() => {
     const findActiveRouteIndex = () => {
-      return routes.findIndex(route => route.layout && route.path && pathname.includes(route.path));
+      const cleanPathname = getPathWithoutLocale(pathname);
+      return routes.findIndex(route => route.layout && route.path && cleanPathname === route.path);
     };
     setActiveIndex(findActiveRouteIndex());
   }, [pathname, routes]);
@@ -47,7 +58,7 @@ const SidebarLinks = ({ onClickRoute }: Props) => {
   };
 
   const createLinks = (routes: any) => {
-    const employeeRoute = routes.filter((route: { path: string }) => ["bills"].includes(route.path));
+    const employeeRoute = routes.filter((route: { path: string }) => ["bills", "bills_history"].includes(route.path));
 
     const renderLinks = (routes: any, startIndex: number, headerText: string) => (
       <div>

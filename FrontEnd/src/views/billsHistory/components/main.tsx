@@ -1,110 +1,78 @@
 "use client";
 
-import CustomButton from "@/components/button";
-import Container from "@/components/container"
-import CustomInputField from "@/components/input";
-import LoadingUI from "@/components/loading";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
-import { IoReloadOutline } from "react-icons/io5";
+import TableSwitcher from "@/components/table";
+import { getTokenFromCookie } from "@/utils/token";
+import CustomButton from "@/views/customTableButton";
+import { useCallback, useEffect, useState } from "react";
+import { columnsData } from "../variables/columnsData";
 
-type BillsFields = {
-    id: keyof BillData,
-    type: InputTypes,
-    important?: boolean,
-    version?: TextInputVersion | SelectInputVersion,
-    select_type?: SelectInputType,
-    options?: SelectInputOptionFormat[],
-    isClearable?: boolean,
-    state?: InputState,
-    dropdownPosition?: DropdownPosition;
-}
-
-const BillsMain = () => {
-    const [loading, setLoading] = useState<boolean>(false);
-    const billTypeData = ["Shopping", "..."];
+const BillsHistoryMain = () => {
     const intl = useTranslations("BillsRoute");
+    const [bills, setBills] = useState<BillRecord[]>();
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [currentSize, setCurrentSize] = useState<number>(10);
+    const [selectedRows, setSelectedRows] = useState<BillRecord[]>([]);
 
-    const billTypeOptions: SelectInputOptionFormat[] = billTypeData.map(type => ({
-        label: type,
-        value: type
-    }));
-
-    const [billInfo, setBillInfo] = useState<BillData>({
-        amount: "0",
-        note: "",
-        type: ["INVOICE"]
-    });
-
-    const updateValue = (id: keyof BillData, value: string | string[]) => {
-        setBillInfo(prevData => ({
-            ...prevData,
-            [id]: value,
-        }));
+    const renderCell = (cellHeader: string, cellValue: string | number | boolean | unknown) => {
+        if (cellHeader === intl("Status")) {
+            return (
+                <div className="w-full h-full whitespace-nowrap">
+                    {intl(cellValue)}
+                </div>
+            );
+        } else if (cellHeader === intl("type")) {
+            return (
+                <div className="w-full h-full whitespace-nowrap">
+                    {Array.isArray(cellValue) ? cellValue.map(item => intl(item)).join(', ') : intl(cellValue)}
+                </div>
+            );
+        }
     };
 
-    const billsFields: Array<BillsFields> = [
-        { id: "type", type: "select", select_type: "multi", isClearable: false, options: billTypeOptions, important: true },
-        { id: "amount", type: "text", important: true },
-        { id: "note", type: "text-area", important: true },
-    ];
+    const fetchData = useCallback(async () => {
+        // const token = getTokenFromCookie();
+        setBills(undefined);
+        setSelectedRows([]);
 
-    const handleReload = () => {
-        if (loading) { return; };
-        setBillInfo({
-            amount: "0",
-            note: "",
-            type: ["INVOICE"]
-        })
-    }
+        // if (!token) return;
+
+        const respone = await fetch('/api/bills');
+        const data: BillRecord[] = await respone.json();
+
+        if (data) {
+            setBills(data);
+        }
+    }, [currentPage, currentSize]);
+
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
 
     return (
-        <Container className="w-full h-full p-4 gap-4 flex flex-col relative">
-            <div className="w-full h-full gap-4 flex flex-col relative">
-                {billsFields.map(({ id, type, version, isClearable, options, select_type, state, important, dropdownPosition }: BillsFields) => (
-                    <CustomInputField
-                        id={id}
-                        key={id}
-                        type={type}
-                        value={billInfo[id]}
-                        setValue={(value: string | string[]) => updateValue(id, value)}
-                        version={version}
-                        options={options}
-                        select_type={select_type}
-                        isClearable={isClearable}
-                        dropdownPosition={dropdownPosition}
-                        className="w-full"
-                        inputClassName="bg-lightContainer dark:!bg-darkContainerPrimary border border-gray-200 dark:border-white/10 max-h-[250px]"
-                        label={
-                            <div className='flex gap-1 place-items-center relative mb-2'>
-                                {intl(id)} {important && <div className="text-red-500">*</div>}
-                            </div>
-                        } />
-                ))}
-            </div>
-
-            <Container className="!sticky bottom-0 w-full !rounded-none flex gap-1.5">
-                <CustomButton
-                    version="1"
-                    color="error"
-                    onClick={handleReload}
-                    className="linear !min-w-10 !w-10 !px-0 rounded-md bg-lightContainer dark:!bg-darkContainer border border-red-500 dark:!border-red-500 h-10 text-base font-medium transition duration-200 hover:border-red-600 
-                            active:border-red-700 text-red-500 dark:text-white dark:hover:border-red-400 dark:active:border-red-300 flex justify-center place-items-center"
-                >
-                    <IoReloadOutline />
-                </CustomButton>
-                <CustomButton
-                    version="1"
-                    color="error"
-                    // onClick={handleSubmit}
-                    className="linear w-full rounded-md bg-red-500 dark:!bg-red-500 h-10 text-base font-medium text-white transition duration-200 hover:bg-red-600 
-                            active:bg-red-700 dark:text-white dark:hover:bg-red-400 dark:active:bg-red-300 flex justify-center place-items-center"
-                >
-                    {loading ? <LoadingUI /> : "Xác nhận"}
-                </CustomButton>
-            </Container>
-        </Container>
+        <>
+            <TableSwitcher
+                primaryKey="id"
+                tableData={bills}
+                isPaginated={false}
+                renderCell={renderCell}
+                currentPage={currentPage}
+                currentSize={currentSize}
+                fetchPageData={fetchData}
+                columnsData={columnsData()}
+                selectedRows={selectedRows}
+                setCurrentPage={setCurrentPage}
+                setSelectedRows={setSelectedRows}
+                customButton={<CustomButton fetchData={fetchData} />}
+                containerClassname="!rounded-xl p-4"
+                selectType="none"
+                setPageSize={{
+                    setCurrentSize,
+                    sizeOptions: [10, 20, 30]
+                }}
+            />
+        </>
     );
 }
 
-export default BillsMain;
+export default BillsHistoryMain;

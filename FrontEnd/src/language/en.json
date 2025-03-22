@@ -19,7 +19,8 @@
   "Routes": {
     "bills": "Bills",
     "EmployeeRoute": "Employee",
-    "home": "Home"
+    "home": "Home",
+    "bills_history": "Bills History"
   },
   "Notification": {
     "DefaultTitle": "Notification",
@@ -61,6 +62,20 @@
   "BillsRoute": {
     "amount": "Amount",
     "type": "Bill Type",
-    "note": "Reason Note"
+    "note": "Reason Note",
+    "INVOICE": "Invoice",
+    "RECEIPT": "Receipt",
+    "OTHER": "Other",
+    "PENDING": "Pending",
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected",
+    "Status": "Status",
+    "id": "ID",
+    "reason": " Reason for acceptance / rejection"
+  },
+  "TableCustomButton": {
+    "Add": "Add",
+    "Delete": "Delete",
+    "Reload": "Reload"
   }
 }
