@@ -29,12 +29,23 @@ public class ApplicationInitConfig {
 
     @NonFinal
     static final String ADMIN_PASSWORD = "admin";
+    @NonFinal
+    static final String MANAGER_USER_NAME = "manager";
+
+    @NonFinal
+    static final String MANAGER_PASSWORD = "manager";
+    @NonFinal
+    static final String FINANCE_USER_NAME = "finance";
+
+    @NonFinal
+    static final String FINANCE_PASSWORD = "finance";
 
     @Bean
     @ConditionalOnProperty(
             prefix = "spring",
             value = "datasource.driver-class-name",
-            havingValue = "com.mysql.cj.jdbc.Driver")
+            havingValue = "org.postgresql.Driver"
+    )
     ApplicationRunner applicationRunner(UserRepository userRepository) {
         return args -> {
             if (userRepository.findByUsername(ADMIN_USER_NAME).isEmpty()) {
@@ -44,12 +55,38 @@ public class ApplicationInitConfig {
                         .password(passwordEncoder.encode(ADMIN_PASSWORD))
                         .role(Roles.ADMIN)
                         .build();
-
-
                 userRepository.save(user);
                 log.warn("admin user has been created with default password: admin, please change it");
             }
+            else{
+                log.warn("admin user already exists");
+            }
+            if (userRepository.findByUsername(MANAGER_USER_NAME).isEmpty()) {
 
+                User user = User.builder()
+                        .username(MANAGER_USER_NAME)
+                        .password(passwordEncoder.encode(MANAGER_PASSWORD))
+                        .role(Roles.MANAGER)
+                        .build();
+                userRepository.save(user);
+                log.warn("admin user has been created with default password: admin, please change it");
+            }
+            else{
+                log.warn("admin user already exists");
+            }
+            if (userRepository.findByUsername(FINANCE_USER_NAME).isEmpty()) {
+
+                User user = User.builder()
+                        .username(FINANCE_USER_NAME)
+                        .password(passwordEncoder.encode(FINANCE_PASSWORD))
+                        .role(Roles.FINANCE_MANAGER)
+                        .build();
+                userRepository.save(user);
+                log.warn("admin user has been created with default password: admin, please change it");
+            }
+            else{
+                log.warn("admin user already exists");
+            }
             log.info("Application initialization completed .....");
         };
     }

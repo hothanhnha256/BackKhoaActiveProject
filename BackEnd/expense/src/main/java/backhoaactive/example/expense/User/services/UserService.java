@@ -53,7 +53,6 @@ public class UserService {
         return userMapper.toUserResponse(user);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     public UserResponse createAdmin(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new AppException(ErrorCode.USER_EXISTED);
@@ -71,7 +70,6 @@ public class UserService {
         return userMapper.toUserResponse(user);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     public UserResponse getUser(String id) {
 
         log.info("inside getUser method");
@@ -81,7 +79,6 @@ public class UserService {
         return userMapper.toUserResponse(user);
     }
 
-    @PreAuthorize("hasRole('ADMIN')") // phân quyền theo ROLE
     public Page<UserResponse> getAllUsers(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return userRepository.findAll(pageable).map(userMapper::toUserResponse);
@@ -104,7 +101,6 @@ public class UserService {
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
     public String deleteUser(String id) {
         User userToDelete = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_INVALID));
         userRepository.delete(userToDelete);
@@ -112,7 +108,6 @@ public class UserService {
     }
 
 
-    @PostAuthorize("returnObject.username==authentication.name") // Recheck to auth
     public UserResponse getMyInfo() {
 
         var context = SecurityContextHolder.getContext();

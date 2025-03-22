@@ -65,6 +65,7 @@ public class AuthenticationService {
                 .orElseThrow(() -> new AppException(ErrorCode.UNAUTHENTICATED_EXCEPTION));
 
         boolean authenticated = passwordEncoder.matches(requests.getPassword(), user.getPassword());
+
         if (!authenticated) {
             throw new AppException(ErrorCode.UNAUTHENTICATED_EXCEPTION);
         }
