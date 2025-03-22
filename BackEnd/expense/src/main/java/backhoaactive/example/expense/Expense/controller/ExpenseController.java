@@ -50,7 +50,7 @@ public class ExpenseController {
             dto.setUserId(user.getId()); // add employeeId
             pageRecord = this.service.getExpenses(dto);
             records = pageRecord.getContent();
-        } else if (userRole == Roles.FINANCE) {
+        } else if (userRole == Roles.FINANCE_MANAGER) {
             // lấy hết
             pageRecord = this.service.getExpenses(dto);
             records = pageRecord.getContent();

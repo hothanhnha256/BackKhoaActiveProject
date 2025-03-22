@@ -48,10 +48,9 @@ public enum ErrorCode {
     INVALID_DEPARTMENT_NAME(2001,"Tên không hợp lệ hoặc đã trùng",HttpStatus.BAD_REQUEST),
 
     INVALID_DEPARTMENT_ID(2001,"Id không hợp lệ ",HttpStatus.BAD_REQUEST),
-
+    NOT_ALLOWED(2000, "Forbidden", HttpStatus.FORBIDDEN),
     // Đối với lịch sử kho vật liệu
     HISTORY_ID_DOES_NOT_EXITS(1009, "Không tồn tại lịch sử với ID này", HttpStatus.BAD_REQUEST);
-
 
     ;
     private int code;
