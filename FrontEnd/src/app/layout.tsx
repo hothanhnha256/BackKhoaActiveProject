@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
 
   return (
-    <html lang="en" className="h-dvh w-dvw">
+    <html lang="en" className="h-dvh w-dvw" suppressHydrationWarning={true}>
       <body>
         {children}
       </body>

@@ -1,5 +1,5 @@
-import { StaffLoginDto } from '@/services/interface';
-import { AuthOperation, StaffOperation } from '@/services/main';
+// import { StaffLoginDto } from '@/services/interface';
+// import { AuthOperation, StaffOperation } from '@/services/main';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { getTokenFromCookie, removeTokenFromCookie, setTokenInCookie } from '@/utils/token';
 
@@ -10,19 +10,19 @@ const initialState: AuthState = {
     loading: false,
 };
 
-export const login = createAsyncThunk<StaffInfo, StaffLoginDto, { rejectValue: RejectedValue }>(
+export const login = createAsyncThunk<StaffInfo, any, { rejectValue: RejectedValue }>(
     'auth/login',
     async (payload, { rejectWithValue }) => {
         try {
-            const authOp = new AuthOperation();
-            const response = await authOp.loggedInByStaff(payload);
-            console.log(response);
-            if (response.success) {
-                setTokenInCookie(response.data?.token);
-                return response.data as StaffInfo;
-            } else {
-                return rejectWithValue(response.message);
-            }
+            // const authOp = new AuthOperation();
+            // const response = await authOp.loggedInByStaff(payload);
+            // console.log(response);
+            // if (response.success) {
+            //     setTokenInCookie(response.data?.token);
+            //     return response.data as StaffInfo;
+            // } else {
+            return rejectWithValue("");
+            // }
         } catch (error) {
             return rejectWithValue(error as RejectedValue);
         }
@@ -37,13 +37,13 @@ export const fetchUserInfo = createAsyncThunk<StaffInfo, void, { rejectValue: Re
             return rejectWithValue('No token found');
         }
         try {
-            const staffOp = new StaffOperation();
-            const response = await staffOp.getInfo(token);
-            if (response.success) {
-                return response.data as StaffInfo;
-            } else {
-                return rejectWithValue(response.message);
-            }
+            // const staffOp = new StaffOperation();
+            // const response = await staffOp.getInfo(token);
+            // if (response.success) {
+            //     return response.data as StaffInfo;
+            // } else {
+            return rejectWithValue("");
+            // }
         } catch (error) {
             return rejectWithValue(error as RejectedValue);
         }

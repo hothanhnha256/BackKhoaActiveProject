@@ -24,8 +24,7 @@ const SelectButtonV1 = ({
         <p className="truncate">{selectedLabel || placeholder || defaultSelectPlaceHolder}</p>
 
         <RenderCase condition={isClearable && value?.length > 0}>
-            <button
-                type="button"
+            <div
                 className='-mr-0.5'
                 onClick={(e) => {
                     e.stopPropagation();
@@ -33,7 +32,7 @@ const SelectButtonV1 = ({
                 }}
             >
                 <MdClose />
-            </button>
+            </div>
         </RenderCase>
 
         <RenderCase condition={!isClearable || !value || value.length === 0}>

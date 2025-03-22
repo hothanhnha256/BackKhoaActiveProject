@@ -32,8 +32,8 @@ const Sidebar: FC<Props> = () => {
             </div>
           </div>
 
-          <div className={`ml-[15px] mt-[55px] mr-[25px] flex flex-col items-center relative w-[210px]`}>
-            <Image src="/Logo_horizontal.png" alt="Your image" width={210} height={210} />
+          <div className={`mx-[15px] mt-[55px] flex flex-col items-center relative w-[210px]`}>
+            <Image src="/Logo_horizontal.png" alt="Your image" width={180} height={150} />
           </div>
         </Container>
 

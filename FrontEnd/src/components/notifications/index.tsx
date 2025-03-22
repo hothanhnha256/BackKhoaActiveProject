@@ -113,12 +113,12 @@ const Notifications = () => {
                                 >
                                     <div className="flex justify-between items-center">
                                         <NotificationHeader title={notification.title || NotificationIntl('DefaultTitle')} type={notification.type} />
-                                        <button
+                                        <div
                                             className="text-black hover:text-gray-500 dark:text-white"
                                             onClick={(e) => handleCloseNotification(notification.id, e)}
                                         >
                                             <MdClose />
-                                        </button>
+                                        </div>
                                     </div>
 
                                     <NotificationContent type={notification.type} message={notification.message} progressWidth={progressWidth} />

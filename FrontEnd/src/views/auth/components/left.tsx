@@ -10,7 +10,6 @@ import CustomInputField from "@/components/input";
 import { useEffect, useRef, useState } from "react";
 import LanguageSwitcher from "@/components/language";
 import { motion, useAnimation } from "framer-motion";
-import { StaffLoginDto } from "@/services/interface";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo, login } from "@/store/action/authSlice";
 import { useNotifications } from "@/hooks/NotificationsProvider";
@@ -39,7 +38,7 @@ const AuthLeftContent = ({ isAnimated }: AuthLeftContentProps) => {
 
     const handleLogin = () => {
 
-        const payload: StaffLoginDto = {
+        const payload = {
             username: account.trim(),
             password: password.trim()
         };

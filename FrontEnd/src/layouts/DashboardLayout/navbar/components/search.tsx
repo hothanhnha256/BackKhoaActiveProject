@@ -22,13 +22,13 @@ const Search = () => {
             <RenderCase condition={openChat}>
                 <AIChatBot chatHistory={chatHistory} setChatHistory={setChatHistory} setOpenChat={setOpenChat} />
             </RenderCase>
-            <motion.button
+            <motion.p
                 className={`absolute text-xl h-8 w-8 px-2 flex justify-center rounded-full place-items-center transition-all duration-500 bg-lightContainer dark:bg-darkContainer shadow-sm transform`}
                 initial={{ left: 2 }}
                 animate={{ left: "calc(100% - 2rem - 6px)" }}
             >
                 <IoSparklesOutline className="ml-0.5 h-3.5 w-3.5 text-navy-700 dark:text-white" />
-            </motion.button>
+            </motion.p>
             <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
