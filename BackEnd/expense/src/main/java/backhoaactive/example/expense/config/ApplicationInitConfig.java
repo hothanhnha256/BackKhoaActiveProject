@@ -34,7 +34,7 @@ public class ApplicationInitConfig {
     @ConditionalOnProperty(
             prefix = "spring",
             value = "datasource.driver-class-name",
-            havingValue = "com.mysql.cj.jdbc.Driver")
+            havingValue = "orgw.postgresql.Driver")
     ApplicationRunner applicationRunner(UserRepository userRepository) {
         return args -> {
             if (userRepository.findByUsername(ADMIN_USER_NAME).isEmpty()) {

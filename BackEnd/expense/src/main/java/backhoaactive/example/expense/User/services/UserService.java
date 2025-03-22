@@ -122,7 +122,7 @@ public class UserService {
         return userMapper.toUserResponse(finduser);
     }
 
-    public User getUserById(String id) {
-        return userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_INVALID));
+    public User getUserByUserName(String username) {
+        return userRepository.findByUsername(username).orElseThrow(() -> new AppException(ErrorCode.USER_INVALID));
     }
 }
