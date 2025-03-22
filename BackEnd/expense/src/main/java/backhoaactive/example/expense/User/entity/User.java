@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Setter
@@ -24,9 +25,6 @@ public class User {
     String username;
 
     String password;
-    String firstName;
-    String lastName;
-    LocalDate birthDate;
 
     Roles role;
     LocalDate createdAt;
