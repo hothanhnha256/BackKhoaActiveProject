@@ -12,6 +12,8 @@ import backhoaactive.example.expense.User.services.UserService;
 import backhoaactive.example.expense.enums.Roles;
 import backhoaactive.example.expense.enums.TypeExpense;
 import backhoaactive.example.expense.exception.ApiResponse;
+import backhoaactive.example.expense.exception.AppException;
+import backhoaactive.example.expense.exception.ErrorCode;
 import com.nimbusds.jose.shaded.gson.JsonElement;
 import com.nimbusds.jwt.SignedJWT;
 import lombok.AllArgsConstructor;
@@ -37,7 +39,7 @@ public class ExpenseController {
         SecurityContext context = SecurityContextHolder.getContext();
         String name = context.getAuthentication().getName();
         User user = userService.getUserByUserName(name);
-        System.out.println("Username + " +  user.getUsername() + " " + user.getId());
+        System.out.println("Username + " + user.getUsername() + " " + user.getId());
 
         List<Record> records = null;
         Page<Record> pageRecord = null;
@@ -45,23 +47,27 @@ public class ExpenseController {
         // chia role
         if (userRole == Roles.USER) {
             // lấy của chính nó
-            dto.setUserId(user.getId());
+            dto.setUserId(user.getId()); // add employeeId
             pageRecord = this.service.getExpenses(dto);
             records = pageRecord.getContent();
-            System.out.println(records);
         } else if (userRole == Roles.FINANCE) {
-            // lấy của deparment của nó
-        } else if (userRole == Roles.MANAGER) {
             // lấy hết
+            pageRecord = this.service.getExpenses(dto);
+            records = pageRecord.getContent();
 
+        } else if (userRole == Roles.MANAGER) {
+            // lấy của deparment của nó
+            pageRecord = this.service.getExpenses(dto);
+            records = pageRecord.getContent();
         } else {
-
+            throw new AppException(ErrorCode.NOT_ALLOWED);
         }
 
         ExpensesResponseDTO responseDTO = ExpensesResponseDTO.builder()
                 .expenses(records)
-                .total((pageRecord != null) ? pageRecord.getTotalPages() : 0)
-                .page(1) //TODO: temp
+                .total(pageRecord.getTotalPages())
+                .page(pageRecord.getNumber() + 1)
+                .limit(pageRecord.getSize())
                 .build();
         ApiResponse<ExpensesResponseDTO> response = ApiResponse.<ExpensesResponseDTO>builder()
                 .code(200)

@@ -41,8 +41,7 @@ public class ExpenseService {
     }
 
     public Page<Record> getExpenses(ExpenseRequestDTO dto) {
-//        Pageable pageable(dto.getPage(),dto.getLimit())
-        Page<Record> page = this.repository.findWithFilters(Process.valueOf(dto.getRequestStatus()), dto.getUserId(), dto.getId(), PageRequest.of(dto.getPage(), dto.getLimit()));
+        Page<Record> page = this.repository.findWithFilters(dto.getRequestStatus() != null ? Process.valueOf(dto.getRequestStatus()) : null, dto.getUserId(), dto.getId(), PageRequest.of(dto.getPage(), dto.getLimit()));
         return page;
     }
 

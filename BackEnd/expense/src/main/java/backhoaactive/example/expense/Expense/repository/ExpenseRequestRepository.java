@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public interface ExpenseRequestRepository extends JpaRepository<Record, String>, JpaSpecificationExecutor<Record> {
+
+    Page<Record> findByEmployeeId(String employeeId, Pageable pageable);
+
     static Specification<Record> withFilters(Process process, String userId, String id) {
         return (root, query, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.conjunction();
@@ -22,21 +25,15 @@ public interface ExpenseRequestRepository extends JpaRepository<Record, String>,
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("process"), process));
             }
 
-            if (userId != null && !userId.trim().isEmpty()) {
+            if (userId != null) {
                 System.out.println(userId);
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("employeeId"), userId));
             }
 
-            if (id != null && !id.trim().isEmpty()) {
-                System.out.println(id);
-                try {
-                    UUID uuid = UUID.fromString(id);
-                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("id"), uuid));
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Invalid UUID: " + id); // Log an invalid UUID instead of crashing
-                }
+            if (id != null) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("id"), id));
             }
-
+//            System.out.println(query);
             return predicate;
         };
     }

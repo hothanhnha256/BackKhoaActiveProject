@@ -46,8 +46,9 @@ public enum ErrorCode {
     MATERIAL_NOT_ENOUGH(1008, "Kho không đủ vật tư, vui lòng thêm vật tư", HttpStatus.BAD_REQUEST),
 
     // Đối với lịch sử kho vật liệu
-    HISTORY_ID_DOES_NOT_EXITS(1009, "Không tồn tại lịch sử với ID này", HttpStatus.BAD_REQUEST);
-;
+    HISTORY_ID_DOES_NOT_EXITS(1009, "Không tồn tại lịch sử với ID này", HttpStatus.BAD_REQUEST),
+
+    NOT_ALLOWED(2000, "Unauthorized", HttpStatus.FORBIDDEN);
     private int code;
     private String message;
     private HttpStatusCode httpStatusCode;
