@@ -71,7 +71,8 @@
     "REJECTED": "Rejected",
     "Status": "Status",
     "id": "ID",
-    "reason": " Reason for acceptance / rejection"
+    "reason": " Reason for acceptance / rejection",
+    "submit": "Submit"
   },
   "TableCustomButton": {
     "Add": "Add",

@@ -71,7 +71,8 @@
     "REJECTED": "Từ chối",
     "Status": "Trạng thái",
     "id": "ID hoá đơn",
-    "reason": "Lý do chấp nhận / từ chối"
+    "reason": "Lý do chấp nhận / từ chối",
+    "submit": "Xác nhận"
   },
   "TableCustomButton": {
     "Add": "Thêm",

@@ -100,7 +100,7 @@ const BillsMain = () => {
                     className="linear w-full rounded-md bg-red-500 dark:!bg-red-500 h-10 text-base font-medium text-white transition duration-200 hover:bg-red-600 
                             active:bg-red-700 dark:text-white dark:hover:bg-red-400 dark:active:bg-red-300 flex justify-center place-items-center"
                 >
-                    {loading ? <LoadingUI /> : "Xác nhận"}
+                    {loading ? <LoadingUI /> : intl("Submit")}
                 </CustomButton>
             </Container>
         </Container>

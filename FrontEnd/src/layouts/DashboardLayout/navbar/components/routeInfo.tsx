@@ -12,11 +12,22 @@ const RouteInfo = () => {
     const intl = useTranslations("Routes")
     const [activeRoute, setActiveRoute] = useState<string | undefined>(undefined);
 
+    const getPathWithoutLocale = (pathname: string) => {
+        const parts = pathname.split('/');
+
+        const localePattern = /^[a-z]{2}$/;
+        if (localePattern.test(parts[1])) {
+            return parts.slice(2).join('/');
+        }
+        return pathname;
+    };
+
     useEffect(() => {
         const findActiveRouteIndex = () => {
-            return routes.find(route => route.layout && route.path && pathname.includes(route.path));
+            const cleanPathname = getPathWithoutLocale(pathname);
+            return routes.findIndex(route => route.layout && route.path && cleanPathname === route.path);
         };
-        setActiveRoute(findActiveRouteIndex()?.path);
+        setActiveRoute(routes[findActiveRouteIndex()].path);
     }, [pathname, routes]);
 
     return (
