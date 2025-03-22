@@ -13,10 +13,16 @@ const useRoutes = () => {
     },
     {
       name: t("bills_history"),
-      layout: "/bills_history",
+      layout: "/dashboard",
       path: "bills_history",
       icon: <FaHistory className="h-4 w-4" />,
-    }
+    },
+    {
+      name: t("pending_bills"),
+      layout: "/dashboard",
+      path: "pending_bills",
+      icon: <FaFileInvoice className="h-4 w-4" />,
+    },
   ];
 };
 

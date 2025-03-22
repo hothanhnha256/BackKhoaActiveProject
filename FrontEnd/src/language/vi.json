@@ -20,7 +20,11 @@
     "bills": "Hoá đơn",
     "bills_history": "Lịch sử hoá đơn",
     "EmployeeRoute": "Nhân viên",
-    "home": "Trang chủ"
+    "ManagerRoute": "Quản lý",
+    "FinancialManagerRoute": "Quản lý tài chính",
+    "AdminRoute": "Quản trị viên",
+    "home": "Trang chủ",
+    "pending_bills": "Hoá đơn chờ duyệt"
   },
   "Notification": {
     "DefaultTitle": "Thông báo",
@@ -72,7 +76,8 @@
     "Status": "Trạng thái",
     "id": "ID hoá đơn",
     "reason": "Lý do chấp nhận / từ chối",
-    "submit": "Xác nhận"
+    "submit": "Xác nhận",
+    "action": "Chấp nhận / từ chối"
   },
   "TableCustomButton": {
     "Add": "Thêm",

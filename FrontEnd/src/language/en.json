@@ -19,8 +19,12 @@
   "Routes": {
     "bills": "Bills",
     "EmployeeRoute": "Employee",
+    "ManagerRoute": "Manager",
+    "FinancialManagerRoute": "Financial Manager",
+    "AdminRoute": "Admin",
     "home": "Home",
-    "bills_history": "Bills History"
+    "bills_history": "Bills History",
+    "pending_bills": "Pending Bills"
   },
   "Notification": {
     "DefaultTitle": "Notification",
@@ -72,7 +76,8 @@
     "Status": "Status",
     "id": "ID",
     "reason": " Reason for acceptance / rejection",
-    "submit": "Submit"
+    "submit": "Submit",
+    "action": "Approve / Reject"
   },
   "TableCustomButton": {
     "Add": "Add",
